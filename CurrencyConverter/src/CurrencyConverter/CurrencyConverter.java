@@ -3,6 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package CurrencyConverter;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -20,7 +28,13 @@ public class CurrencyConverter extends javax.swing.JFrame {
      */
     public CurrencyConverter() {
         initComponents();
+        setSize(724, 580);
+        setResizable(false);  
+        setLocationRelativeTo(null);
     }
+    
+private static final String API_KEY = "8359b2d8255244df9912618038c4c460"; // Replace with your API key
+private static final String API_URL = "https://openexchangerates.org/api/latest.json?app_id=" + API_KEY;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,14 +63,17 @@ public class CurrencyConverter extends javax.swing.JFrame {
         jbtnConverter2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(102, 102, 102));
+        setForeground(new java.awt.Color(0, 102, 102));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 255), 10));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 102), 10));
+        jPanel2.setForeground(new java.awt.Color(0, 102, 102));
 
-        jLabel1.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
         jLabel1.setText("Amount Converted");
 
-        jtxtAmountConverted.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jtxtAmountConverted.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
         jtxtAmountConverted.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtxtAmountConvertedActionPerformed(evt);
@@ -69,9 +86,9 @@ public class CurrencyConverter extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70)
-                .addComponent(jtxtAmountConverted, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
+                .addComponent(jtxtAmountConverted, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -81,14 +98,15 @@ public class CurrencyConverter extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jtxtAmountConverted, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 710, 90));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 690, 90));
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 255), 10));
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 102), 10));
+        jPanel3.setForeground(new java.awt.Color(0, 102, 102));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 56)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 56)); // NOI18N
         jLabel2.setText("Currency Converter");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -96,9 +114,9 @@ public class CurrencyConverter extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(75, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 542, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73))
+                .addContainerGap(55, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,36 +125,37 @@ public class CurrencyConverter extends javax.swing.JFrame {
                 .addGap(0, 4, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 710, 100));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 690, 100));
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 255), 10));
+        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 102), 10));
+        jPanel4.setForeground(new java.awt.Color(0, 102, 102));
 
-        jLabel3.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        jLabel3.setText("From Currency");
+        jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
+        jLabel3.setText("From");
 
-        jLabel5.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        jLabel5.setText("To Currency");
+        jLabel5.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
+        jLabel5.setText("To");
 
-        jLabel6.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
         jLabel6.setText("Amount");
 
-        jtxtAmount.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jtxtAmount.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
         jtxtAmount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtxtAmountActionPerformed(evt);
             }
         });
 
-        jToCurrency.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        jToCurrency.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "GBP - Britain", "CAD - Canadian Dollar", "MXN - Mexican Peso", "EUR - Euro", "RUB - Russian Ruble", "USD - US Dollar", " " }));
+        jToCurrency.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
+        jToCurrency.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EUR - Euro", "USD - US Dollar", "AUD - Australian Dollar ", "BRL - Brazilian Real ", "RUB - Russian Ruble", "CAD - Canadian Dollar", "CHF - Swiss Franc ", "CNY - Chinese Yuan", "GBP - Britain", "INR - Indian Rupee", "JPY - Japanese Yen", "KRW - South Korean Won", "MXN - Mexican Peso", "NZD - New Zealand Dollar", "SGD - Singapore Dollar", "ZAR - South African Rand" }));
         jToCurrency.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToCurrencyActionPerformed(evt);
             }
         });
 
-        jFromCurrency.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        jFromCurrency.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "GBP - Britain", "CAD - Canadian Dollar", "MXN - Mexican Peso", "EUR - Euro", "RUB - Russian Ruble", "USD - US Dollar", " " }));
+        jFromCurrency.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
+        jFromCurrency.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EUR - Euro", "USD - US Dollar", "AUD - Australian Dollar ", "BRL - Brazilian Real ", "RUB - Russian Ruble", "CAD - Canadian Dollar", "CHF - Swiss Franc ", "CNY - Chinese Yuan", "GBP - Britain", "INR - Indian Rupee", "JPY - Japanese Yen", "KRW - South Korean Won", "MXN - Mexican Peso", "NZD - New Zealand Dollar", "SGD - Singapore Dollar", "ZAR - South African Rand" }));
         jFromCurrency.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jFromCurrencyActionPerformed(evt);
@@ -150,39 +169,40 @@ public class CurrencyConverter extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jToCurrency, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jtxtAmount, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jFromCurrency, 0, 513, Short.MAX_VALUE))
+                    .addComponent(jFromCurrency, 0, 493, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
+                .addContainerGap(8, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jtxtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3)
-                    .addComponent(jFromCurrency, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jFromCurrency))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel5)
-                    .addComponent(jToCurrency, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jToCurrency, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18))
         );
 
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 710, 170));
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 690, 170));
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 255), 10));
+        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 102), 10));
+        jPanel5.setForeground(new java.awt.Color(0, 102, 102));
 
-        jbtnReset.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jbtnReset.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
         jbtnReset.setText("Reset");
         jbtnReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,7 +210,7 @@ public class CurrencyConverter extends javax.swing.JFrame {
             }
         });
 
-        jbtnExit.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jbtnExit.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
         jbtnExit.setText("Exit");
         jbtnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -198,8 +218,8 @@ public class CurrencyConverter extends javax.swing.JFrame {
             }
         });
 
-        jbtnConverter2.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        jbtnConverter2.setText("Converter");
+        jbtnConverter2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
+        jbtnConverter2.setText("Convert");
         jbtnConverter2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnConverter2ActionPerformed(evt);
@@ -211,13 +231,13 @@ public class CurrencyConverter extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(24, Short.MAX_VALUE)
                 .addComponent(jbtnConverter2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jbtnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
+                .addGap(18, 18, 18)
                 .addComponent(jbtnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(36, 36, 36))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,10 +247,10 @@ public class CurrencyConverter extends javax.swing.JFrame {
                     .addComponent(jbtnReset)
                     .addComponent(jbtnExit)
                     .addComponent(jbtnConverter2))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 710, 110));
+        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 690, 110));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -283,21 +303,67 @@ private JFrame frame;
          toCurrency = jToCurrency.getSelectedItem().toString().substring(0, 3);
                  
          convertAmount = convertCurrency(amount,  fromCurrency, toCurrency);
-         
-         jtxtAmountConverted.setText(amount +  " " + fromCurrency + " = " + convertAmount + " " + toCurrency);
+         String formattedAmount = String.format("%.2f", convertAmount);
+
+        jtxtAmountConverted.setText(amount + " " + fromCurrency + " = " + formattedAmount + " " + toCurrency);
     }//GEN-LAST:event_jbtnConverter2ActionPerformed
 
+    
     //=======================================================================================
-    public  double convertCurrency(double amount, String fromCurrency, String toCurrency) {
-        Map<String, Double> conversionRate = new HashMap<>();
-        conversionRate.put("GBP", 1.0);
-        conversionRate.put("EUR", 1.35);
+ //   public  double convertCurrency(double amount, String fromCurrency, String toCurrency) {
+     //   Map<String, Double> conversionRate = new HashMap<>();
+        //conversionRate.put("GBP", 1.0);
+ //       conversionRate.put("EUR", 1.35);
+ //       
+  //      if (! conversionRate.containsKey(fromCurrency) || !conversionRate.containsKey(toCurrency)) {
+    //        throw new IllegalArgumentException("Invalid currency code.");
+     //   }
         
-        if (! conversionRate.containsKey(fromCurrency) || !conversionRate.containsKey(toCurrency)) {
-            throw new IllegalArgumentException("Invalid currency code.");
+     //   return amount * conversionRate.get(toCurrency) / conversionRate.get(fromCurrency);
+  //  }
+    
+
+    
+
+    public double convertCurrency(double amount, String fromCurrency, String toCurrency) {
+        try {
+            // Fetch exchange rates from the API
+            String apiUrl = API_URL;
+            String response = sendHttpRequest(apiUrl);
+            
+            // Parse the JSON response
+            JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject();
+            JsonObject rates = jsonObject.getAsJsonObject("rates");
+
+            double fromRate = rates.get(fromCurrency).getAsDouble();
+            double toRate = rates.get(toCurrency).getAsDouble();
+            
+            // Convert the amount
+            return amount * (toRate / fromRate);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    private String sendHttpRequest(String apiUrl) throws Exception {
+        URL url = new URL(apiUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String inputLine;
+        StringBuilder content = new StringBuilder();
+        
+        while ((inputLine = in.readLine()) != null) {
+            content.append(inputLine);
         }
         
-        return amount * conversionRate.get(toCurrency) / conversionRate.get(fromCurrency);
+        // Close the connections
+        in.close();
+        connection.disconnect();
+        
+        return content.toString();
     }
     //=======================================================================================
     
@@ -327,7 +393,7 @@ private JFrame frame;
             java.util.logging.Logger.getLogger(CurrencyConverter.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -355,3 +421,4 @@ private JFrame frame;
     private javax.swing.JTextField jtxtAmountConverted;
     // End of variables declaration//GEN-END:variables
 }
+
