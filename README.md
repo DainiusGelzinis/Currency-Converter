@@ -68,7 +68,6 @@ Currency Converter is a desktop application built with Java Swing that allows us
 1. **Clone the Repository**:
    git clone https://github.com/yourusername/currency-converter.git
    cd currency-converter
-   ```
 
 2. **Open in Your IDE**:
    - Import the project into your favorite IDE (e.g., NetBeans, IntelliJ, Eclipse).
