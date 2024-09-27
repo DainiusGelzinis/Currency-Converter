@@ -184,6 +184,11 @@ public class CurrencyConverter extends javax.swing.JFrame {
 
         jbtnReset.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jbtnReset.setText("Reset");
+        jbtnReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnResetActionPerformed(evt);
+            }
+        });
 
         jbtnExit.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jbtnExit.setText("Exit");
@@ -195,6 +200,11 @@ public class CurrencyConverter extends javax.swing.JFrame {
 
         jbtnConverter2.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jbtnConverter2.setText("Converter");
+        jbtnConverter2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnConverter2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -248,6 +258,49 @@ private JFrame frame;
          }
     }//GEN-LAST:event_jbtnExitActionPerformed
 
+    private void jbtnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnResetActionPerformed
+         jtxtAmount.setText("");
+         jtxtAmountConverted.setText("");
+         jFromCurrency.setSelectedIndex(-1); 
+         jToCurrency.setSelectedIndex(-1); 
+    }//GEN-LAST:event_jbtnResetActionPerformed
+
+    private void jbtnConverter2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnConverter2ActionPerformed
+         double amount; 
+         String fromCurrency;
+         String toCurrency; 
+         double convertAmount;
+         
+         try {
+                amount = Double.parseDouble(jtxtAmount.getText());
+         } catch (NumberFormatException e) {
+             JOptionPane.showMessageDialog(this, "Please enter a valid number", "Exclamation", JOptionPane.ERROR_MESSAGE);
+             jtxtAmount.setText("");
+             jtxtAmount.requestFocus();
+             return;
+         }
+         fromCurrency = jFromCurrency.getSelectedItem().toString().substring(0, 3);
+         toCurrency = jToCurrency.getSelectedItem().toString().substring(0, 3);
+                 
+         convertAmount = convertCurrency(amount,  fromCurrency, toCurrency);
+         
+         jtxtAmountConverted.setText(amount +  " " + fromCurrency + " = " + convertAmount + " " + toCurrency);
+    }//GEN-LAST:event_jbtnConverter2ActionPerformed
+
+    //=======================================================================================
+    public  double convertCurrency(double amount, String fromCurrency, String toCurrency) {
+        Map<String, Double> conversionRate = new HashMap<>();
+        conversionRate.put("GBP", 1.0);
+        conversionRate.put("EUR", 1.35);
+        
+        if (! conversionRate.containsKey(fromCurrency) || !conversionRate.containsKey(toCurrency)) {
+            throw new IllegalArgumentException("Invalid currency code.");
+        }
+        
+        return amount * conversionRate.get(toCurrency) / conversionRate.get(fromCurrency);
+    }
+    //=======================================================================================
+    
     /**
      * @param args the command line arguments
      */
