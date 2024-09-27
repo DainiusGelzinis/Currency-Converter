@@ -18,6 +18,9 @@ Currency Converter is a desktop application built with Java Swing that allows us
 - **Open Exchange Rates API** for live currency rates.
 - **Gson** library for parsing JSON data from the API.
 
+## Screenshot
+
+![Currency Converter Screenshot](Screenshot.png)
 
 
 ## Usage
