@@ -243,7 +243,9 @@ public class CurrencyConverter extends javax.swing.JFrame {
 private JFrame frame;
     private void jbtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnExitActionPerformed
          frame = new JFrame ("Exit");
-         
+         if (JOptionPane.showConfirmDialog(frame, "Confirm if you want to exit", "Currency Converter", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION)  {
+             System.exit(0);
+         }
     }//GEN-LAST:event_jbtnExitActionPerformed
 
     /**
