@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package CurrencyConverter;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -19,7 +16,7 @@ import java.util.Map;
 
 /**
  *
- * @author 20231230
+ * @author Dainius Gelzinis
  */
 public class CurrencyConverter extends javax.swing.JFrame {
 
@@ -309,21 +306,6 @@ private JFrame frame;
     }//GEN-LAST:event_jbtnConverter2ActionPerformed
 
     
-    //=======================================================================================
- //   public  double convertCurrency(double amount, String fromCurrency, String toCurrency) {
-     //   Map<String, Double> conversionRate = new HashMap<>();
-        //conversionRate.put("GBP", 1.0);
- //       conversionRate.put("EUR", 1.35);
- //       
-  //      if (! conversionRate.containsKey(fromCurrency) || !conversionRate.containsKey(toCurrency)) {
-    //        throw new IllegalArgumentException("Invalid currency code.");
-     //   }
-        
-     //   return amount * conversionRate.get(toCurrency) / conversionRate.get(fromCurrency);
-  //  }
-    
-
-    
 
     public double convertCurrency(double amount, String fromCurrency, String toCurrency) {
         try {
@@ -365,8 +347,7 @@ private JFrame frame;
         
         return content.toString();
     }
-    //=======================================================================================
-    
+
     /**
      * @param args the command line arguments
      */
